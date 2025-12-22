@@ -107,3 +107,56 @@ button { background-color: var(--primary-red); color: white; border: none; paddi
 .tile-white { background-color: white; border: 1px solid #eee; align-items: center; }
 .icon { font-size: 2rem; margin-bottom: 10px; }
 h4 { margin: 0; }
+/* --- SEARCH RESULTS STYLING --- */
+.results-box {
+    background: white;
+    border-radius: 12px;
+    margin-top: 5px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 100;
+    position: absolute; /* This makes it float over the map tiles */
+}
+
+.result-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.result-item:hover {
+    background: #fff9f9;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.result-header strong {
+    color: #A50000;
+    font-size: 1.1rem;
+}
+
+.location-tag {
+    font-size: 0.75rem;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #A50000;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.directions {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.4;
+    text-align: left;
+}

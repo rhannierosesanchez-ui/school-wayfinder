@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SJC Novaliches Wayfinder</title>
+    <title>SJCNI Wayfinder</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -11,7 +11,7 @@
 
     <header class="main-header">
         <div class="logo-container">
-            <img src="logo.png" alt="St. Joseph College Logo" class="school-logo">
+            <img src="logo.png" alt="SJCNI Logo" class="school-logo">
             <div class="logo-text">
                 ST. JOSEPH COLLEGE <span>OF NOVALICHES, INC.</span>
             </div>
@@ -26,27 +26,28 @@
             <div class="hero-content">
                 <h1>Where are you headed?</h1>
                 <div class="search-container">
-                    <input type="text" placeholder="Search buildings, rooms, or offices...">
-                    <button>Search</button>
+                    <input type="text" id="searchInput" placeholder="Search rooms, SHS, or offices..." onkeyup="searchFunction()">
+                    <button onclick="searchFunction()">Search</button>
                 </div>
+                <div id="searchResults" class="results-box"></div>
             </div>
         </section>
 
         <div class="bento-grid">
-            <div class="tile tile-red wide">
-                <h3>Quickest Route</h3>
-                <p>Find the fastest way to your next class.</p>
-                <span class="arrow">→</span>
+            <div class="tile tile-red wide" onclick="alert('Senior High is at Estelle Plaza, 3rd Floor (Outside Main Gate)')">
+                <h3>Senior High School</h3>
+                <p>Located at Estelle Plaza</p>
+                <span class="arrow">View Directions →</span>
             </div>
             
             <div class="tile tile-white">
                 <div class="icon">📍</div>
-                <h4>Buildings</h4>
+                <h4>HS Bldg</h4>
             </div>
 
             <div class="tile tile-white">
                 <div class="icon">🍴</div>
-                <h4>Dining</h4>
+                <h4>Canteen</h4>
             </div>
 
             <div class="tile tile-white">
@@ -56,10 +57,11 @@
 
             <div class="tile tile-white">
                 <div class="icon">🏋️‍♂️</div>
-                <h4>Gymnasium</h4>
+                <h4>Gym</h4>
             </div>
         </div>
     </main>
 
+    <script src="script.js"></script>
 </body>
 </html>
