@@ -12,27 +12,55 @@ body {
     color: var(--dark-grey);
 }
 
+/* HEADER STYLING */
 .main-header {
     background-color: var(--white);
-    padding: 1rem 5%;
+    padding: 0.8rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--primary-red);
+    border-bottom: 3px solid var(--primary-red);
 }
 
-.logo {
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.school-logo {
+    height: 50px; /* Adjust this if the logo is too small/big */
+    width: auto;
+}
+
+.logo-text {
     font-family: 'Crimson Pro', serif;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: var(--primary-red);
+    line-height: 1.1;
 }
 
-.logo span { color: var(--dark-grey); }
+.logo-text span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--dark-grey);
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
 
+.status-dot {
+    height: 8px;
+    width: 8px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* HERO SECTION */
 .container { padding: 2rem 5%; }
 
-/* HERO BACKGROUND SECTION */
 .hero-overlay-section {
     position: relative;
     width: 100%;
@@ -44,47 +72,18 @@ body {
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    /* CHANGE 'school.jpg' TO YOUR FILENAME BELOW */
     background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('school.png');
     background-size: cover;
     background-position: center;
     color: white;
 }
 
-.hero-content {
-    z-index: 2;
-    width: 90%;
-    max-width: 600px;
-}
+.hero-content { width: 90%; max-width: 600px; }
+.hero-content h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
 
-.hero-content h1 {
-    font-size: 2.8rem;
-    margin-bottom: 1rem;
-    color: white; /* Force white so it's readable on the photo */
-}
-
-.search-container {
-    display: flex;
-    gap: 10px;
-}
-
-input {
-    flex: 1;
-    padding: 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
-button {
-    background-color: var(--primary-red);
-    color: white;
-    border: none;
-    padding: 0 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
+.search-container { display: flex; gap: 10px; }
+input { flex: 1; padding: 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; }
+button { background-color: var(--primary-red); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
 /* BENTO GRID */
 .bento-grid {
@@ -106,6 +105,5 @@ button {
 .tile:hover { transform: translateY(-5px); }
 .tile-red { background-color: var(--primary-red); color: white; grid-column: span 2; }
 .tile-white { background-color: white; border: 1px solid #eee; align-items: center; }
-.tile-dark { background-color: var(--dark-grey); color: white; }
 .icon { font-size: 2rem; margin-bottom: 10px; }
-.status { color: #ffbcbc; font-size: 0.9rem; }
+h4 { margin: 0; }
