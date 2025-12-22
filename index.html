@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Wayfinder</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #2c3e50; color: white; margin: 0; padding: 20px; }
+        .app-container { max-width: 700px; margin: auto; background: #34495e; padding: 20px; border-radius: 15px; }
+        
+        /* The image window */
+        .view-window { width: 100%; height: 400px; overflow: hidden; border-radius: 10px; border: 4px solid #fff; position: relative; }
+        .view-window img { width: 100%; height: 100%; object-fit: cover; }
+
+        .nav-ui { margin-top: 20px; }
+        .btn { padding: 15px 25px; margin: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; background: #27ae60; color: white; }
+        .btn:hover { background: #2ecc71; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1 id="location-title">School Gate</h1>
+        
+        <div class="view-window">
+            <img id="main-view" src="school.png" alt="Current View">
+        </div>
+
+        <div class="nav-ui" id="controls">
+            <button class="btn" onclick="moveForward()">Move Forward into School</button>
+        </div>
+    </div>
+
+    <script>
+        // This is where we keep track of where the user is
+        let currentPosition = "gate";
+
+        function moveForward() {
+            if (currentPosition === "gate") {
+                // Change the title
+                document.getElementById('location-title').innerText = "Main Lobby";
+                
+                // Change the image (For now it will show the 'broken' icon because you don't have lobby.jpg yet)
+                document.getElementById('main-view').src = "lobby.jpg";
+                
+                // Change the button text
+                document.querySelector('.btn').innerText = "Walk to Hallway";
+                
+                // Update our position
+                currentPosition = "lobby";
+                
+                alert("You moved forward! Once you take a photo of the lobby and name it lobby.jpg, it will appear here.");
+            }
+        }
+    </script>
+
+</body>
+</html>
