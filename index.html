@@ -5,63 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SJCNI Wayfinder</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="logo.png" alt="SJCNI Logo" class="school-logo">
-            <div class="logo-text">
-                ST. JOSEPH COLLEGE <span>OF NOVALICHES, INC.</span>
+    <nav class="top-nav">
+        <div class="nav-content">
+            <img src="logo.png" alt="SJC Logo" class="nav-logo">
+            <div class="school-titles">
+                <span class="college-name">St. Joseph College of Novaliches Inc.</span>
+                <span class="app-name">SJCNI WAYFINDER</span>
             </div>
         </div>
-        <nav class="desktop-nav">
-            <div class="status-dot"></div> Live Map
-        </nav>
-    </header>
+    </nav>
 
-    <main class="container">
-        <section class="hero-overlay-section">
-            <div class="hero-content">
-                <h1>Where are you headed?</h1>
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="Search rooms, SHS, or offices..." onkeyup="searchFunction()">
-                    <button onclick="searchFunction()">Search</button>
-                </div>
-                <div id="searchResults" class="results-box"></div>
+    <main class="main-content">
+        
+        <section class="search-section">
+            <div class="search-container">
+                <input type="text" id="userInput" placeholder="Search destinations (e.g., Library, Clinic)...">
+                <button onclick="searchFunction()" class="btn-search">FIND ROUTE</button>
             </div>
         </section>
 
-        <div class="bento-grid">
-            <div class="tile tile-red wide" onclick="alert('Senior High is at Estelle Plaza, 3rd Floor (Outside Main Gate)')">
-                <h3>Senior High School</h3>
-                <p>Located at Estelle Plaza</p>
-                <span class="arrow">View Directions →</span>
-            </div>
-            
-            <div class="tile tile-white">
-                <div class="icon">📍</div>
-                <h4>HS Bldg</h4>
+        <div class="floor-nav">
+            <button onclick="changeFloor('floor1.jpg')" class="floor-btn">GROUND FLOOR</button>
+            <button onclick="changeFloor('floor2.jpg')" class="floor-btn">SECOND FLOOR</button>
+            <button onclick="changeFloor('floor3.jpg')" class="floor-btn">THIRD FLOOR</button>
+        </div>
+
+        <div class="viewer-container" id="viewerContainer">
+            <div id="mainView" class="view-panel big">
+                <img src="floor1.jpg" id="mainMap" class="base-map">
+                <img src="path-library.png" id="line-library" class="path-layer" style="display:none;">
             </div>
 
-            <div class="tile tile-white">
-                <div class="icon">🍴</div>
-                <h4>Canteen</h4>
-            </div>
-
-            <div class="tile tile-white">
-                <div class="icon">📚</div>
-                <h4>Library</h4>
-            </div>
-
-            <div class="tile tile-white">
-                <div class="icon">🏋️‍♂️</div>
-                <h4>Gym</h4>
+            <div id="miniView" class="view-panel small" onclick="swapViews()">
+                <div class="overlay-label">TAP TO SWAP VIEW</div>
+                <iframe id="panoeeFrame" src="https://panoee.com/YOUR_ID_HERE" allowfullscreen></iframe>
             </div>
         </div>
     </main>
 
-    <script src="script.js"></script>
+    <footer class="footer">
+        <p>&copy; 2026 St. Joseph College of Novaliches Inc.</p>
+        <p class="dev-credits">DEVELOPED BY INNOVENTURES</p>
+    </footer>
+
+    <script>
+        let isMapBig = true;
+
+        function swapViews() {
+            const mainView = document.getElementById('mainView');
+            const miniView = document.getElementById('miniView');
+            if (isMapBig) {
+                mainView.className = "view-panel small";
+                miniView.className = "view-panel big";
+            } else {
+                mainView.className = "view-panel big";
+                miniView.className = "view-panel small";
+            }
+            isMapBig = !isMapBig;
+        }
+
+        function changeFloor(fileName) {
+            document.getElementById('mainMap').src = fileName;
+        }
+
+        function searchFunction() {
+            let input = document.getElementById('userInput').value.toLowerCase();
+            // Hide all lines first
+            document.querySelectorAll('.path-layer').forEach(l => l.style.display = 'none');
+
+            if (input === "library") {
+                changeFloor('floor1.jpg');
+                document.getElementById('line-library').style.display = "block";
+                alert("Path to Library is now visible!");
+            } else {
+                alert("Location not found.");
+            }
+        }
+    </script>
 </body>
 </html>

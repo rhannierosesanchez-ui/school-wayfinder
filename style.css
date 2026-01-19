@@ -1,162 +1,84 @@
-:root {
-    --primary-red: #A50000;
-    --dark-grey: #1A1A1A;
-    --light-bg: #F9F9F9;
-    --white: #FFFFFF;
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Montserrat', sans-serif; background-color: #ffffff; color: #333; }
+
+/* HEADER */
+.top-nav { background-color: #b30000; padding: 20px 0; border-bottom: 5px solid #8a0000; }
+.nav-content { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 20px; }
+.nav-logo { height: 70px; }
+.college-name { color: white; font-size: 13px; font-weight: 300; letter-spacing: 1px; text-transform: uppercase; }
+.app-name { color: white; font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; margin-top: -5px; }
+
+/* MAIN CONTENT */
+.main-content { max-width: 1000px; margin: 30px auto; padding: 0 15px; }
+
+/* SEARCH BAR STYLING */
+.search-section { margin-bottom: 30px; }
+.search-container { display: flex; justify-content: center; width: 100%; }
+.search-container input {
+    padding: 15px;
+    width: 100%;
+    max-width: 500px;
+    border: 2px solid #ddd;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
 }
-
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: var(--light-bg);
-    color: var(--dark-grey);
+.btn-search {
+    background-color: #b30000;
+    color: white;
+    border: 2px solid #b30000;
+    padding: 0 25px;
+    font-weight: 600;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: 0.3s;
 }
+.btn-search:hover { background-color: #333; border-color: #333; }
 
-/* HEADER STYLING */
-.main-header {
-    background-color: var(--white);
-    padding: 0.8rem 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid var(--primary-red);
+/* FLOOR BUTTONS */
+.floor-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+.floor-btn {
+    background: white; border: 1px solid #b30000; color: #b30000;
+    padding: 10px 15px; font-size: 11px; font-weight: 600; cursor: pointer; transition: 0.3s;
 }
+.floor-btn:hover { background: #b30000; color: white; }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.school-logo {
-    height: 50px; /* Adjust this if the logo is too small/big */
-    width: auto;
-}
-
-.logo-text {
-    font-family: 'Crimson Pro', serif;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--primary-red);
-    line-height: 1.1;
-}
-
-.logo-text span {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--dark-grey);
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-}
-
-.status-dot {
-    height: 8px;
-    width: 8px;
-    background-color: #2ecc71;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 5px;
-}
-
-/* HERO SECTION */
-.container { padding: 2rem 5%; }
-
-.hero-overlay-section {
+/* VIEWPORT (MAP & STREETVIEW) */
+.viewer-container {
     position: relative;
     width: 100%;
-    min-height: 350px;
-    border-radius: 20px;
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    height: 70vh;
+    background: #eee;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     overflow: hidden;
-    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('school.png');
-    background-size: cover;
-    background-position: center;
-    color: white;
 }
 
-.hero-content { width: 90%; max-width: 600px; }
-.hero-content h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
-
-.search-container { display: flex; gap: 10px; }
-input { flex: 1; padding: 15px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; }
-button { background-color: var(--primary-red); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-
-/* BENTO GRID */
-.bento-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    grid-auto-rows: 150px;
-    gap: 15px;
+.view-panel { transition: all 0.5s ease-in-out; position: absolute; overflow: hidden; }
+.view-panel.big { width: 100%; height: 100%; top: 0; left: 0; z-index: 1; }
+.view-panel.small {
+    width: 280px; height: 180px; bottom: 20px; right: 20px;
+    z-index: 10; border: 4px solid white; box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    cursor: pointer; background: #000;
 }
 
-.tile {
-    padding: 20px;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: transform 0.2s;
+.view-panel img, .view-panel iframe { width: 100%; height: 100%; object-fit: contain; border: none; }
+
+.overlay-label {
+    position: absolute; top: 0; left: 0; width: 100%;
+    background: #b30000; color: white; font-size: 10px; text-align: center; padding: 5px; z-index: 11;
 }
 
-.tile:hover { transform: translateY(-5px); }
-.tile-red { background-color: var(--primary-red); color: white; grid-column: span 2; }
-.tile-white { background-color: white; border: 1px solid #eee; align-items: center; }
-.icon { font-size: 2rem; margin-bottom: 10px; }
-h4 { margin: 0; }
-/* --- SEARCH RESULTS STYLING --- */
-.results-box {
-    background: white;
-    border-radius: 12px;
-    margin-top: 5px;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    display: none;
-    z-index: 100;
-    position: absolute; /* This makes it float over the map tiles */
-}
+/* FOOTER */
+.footer { margin-top: 50px; padding: 40px; background: #1a1a1a; color: white; text-align: center; }
+.dev-credits { font-size: 10px; color: #666; margin-top: 10px; letter-spacing: 2px; }
 
-.result-item {
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-    transition: background 0.2s;
-    cursor: pointer;
-}
-
-.result-item:hover {
-    background: #fff9f9;
-}
-
-.result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 5px;
-}
-
-.result-header strong {
-    color: #A50000;
-    font-size: 1.1rem;
-}
-
-.location-tag {
-    font-size: 0.75rem;
-    background: #f0f0f0;
-    padding: 2px 8px;
-    border-radius: 4px;
-    color: #A50000;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.directions {
-    margin: 0;
-    font-size: 0.85rem;
-    color: #555;
-    line-height: 1.4;
-    text-align: left;
+/* MOBILE */
+@media (max-width: 650px) {
+    .nav-content { flex-direction: column; text-align: center; }
+    .view-panel.small { width: 160px; height: 110px; bottom: 10px; right: 10px; }
+    .search-container input { font-size: 14px; }
 }
