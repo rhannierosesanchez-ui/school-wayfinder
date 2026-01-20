@@ -1,55 +1,114 @@
-const directory = [
-    // --- MAIN / HIGH SCHOOL BUILDING ---
-    { name: "AV Theater", location: "HS Bldg, Ground Floor", info: "Left side, 10 steps from the main gate", tags: "theater, audio visual, events" },
-    { name: "HS Principal's Office", location: "HS Bldg, Ground Floor", info: "Left side, before the stairs", tags: "principal, office, head" },
-    { name: "High School Lobby", location: "HS Bldg, 2nd Floor", info: "Right after going upstairs from the left side", tags: "lobby, waiting area" },
-    { name: "Registrar & Cashier", location: "HS Bldg, Ground Floor", info: "Left side, beside the stairs at the corner", tags: "payment, enrollment, records" },
-    { name: "Clinic", location: "HS Bldg, 2nd Floor", info: "Near CR and VP/Guidance Office", tags: "nurse, medical, first aid" },
-    { name: "HS Faculty", location: "HS Bldg, 2nd Floor", info: "Right side, near Clinic and VP Office", tags: "teachers, faculty" },
-    { name: "Sound Engineering Room", location: "HS Bldg, 3rd Floor", info: "Top floor via corner stairs", tags: "sound, tech, engineering" },
-    { name: "Science Laboratories", location: "HS Bldg, 3rd Floor", info: "Top floor facility", tags: "science, lab, biology, chemistry" },
-    { name: "Comfort Rooms (CR)", location: "All Floors", info: "North side, near the stairs at each floor", tags: "cr, toilet, bathroom, restroom" },
+// Handle floor buttons
+function setFloor(imgSrc, element) {
+    document.getElementById("activeMap").src = imgSrc;
+    document.querySelectorAll(".f-btn").forEach(btn => btn.classList.remove("active"));
+    if(element) element.classList.add("active");
+    const pin = document.getElementById("pin");
+    pin.style.display = "none"; // hide pin when changing floor
+}
 
-    // --- EXTERNAL FACILITIES & NAVIGATION ---
-    { name: "School Canteen", location: "Main Campus", info: "Way 1: North via stairs beside Principal's Office. Way 2: Via Grade School Bldg entrance.", tags: "food, lunch, snacks, cafeteria" },
-    { name: "School Library", location: "Main Campus", info: "Path going down at the right side (in front of canteen stairs)", tags: "books, study, research" },
-    { name: "Gymnasium", location: "Main Campus", info: "Past the Library/Grade School doorway, head North", tags: "sports, basketball, gym, court" },
-    { name: "Grade School Department", location: "GS Building", info: "North from main gate through the archway/doorway", tags: "gs, elementary" },
+// Red pin function
+function showPin(x, y) {
+    const pin = document.getElementById("pin");
+    pin.style.left = x + "%";
+    pin.style.top = y + "%";
+    pin.style.display = "block";
+}
 
-    // --- ESTELLE PLAZA (SHS) ---
-    { name: "Senior High Classrooms", location: "Estelle Plaza, 3rd Floor", info: "Located outside the main school gate", tags: "shs, grade 11, grade 12, senior high" }
-];
+// Rooms with coordinates
+const pin = document.getElementById("pin");
 
-function searchFunction() {
-    const input = document.getElementById('searchInput').value.toLowerCase();
-    const resultsDiv = document.getElementById('searchResults');
-    resultsDiv.innerHTML = "";
+const rooms = {
+  // FLOOR 1
+  "registrar": {floor:"floor1.jpg", x:21, y:65},
+  "cashier": {floor:"floor1.jpg", x:21, y:65},
+  "perseverance": {floor:"floor1.jpg", x:27, y:48},
+  "integrity": {floor:"floor1.jpg", x:31, y:33},
+  "certitude": {floor:"floor1.jpg", x:35, y:23},
+  "taekwando": {floor:"floor1.jpg", x:68, y:7},
+  "peace": {floor:"floor1.jpg", x:67, y:63},
+  "dignity": {floor:"floor1.jpg", x:58, y:69},
+  "loyalty": {floor:"floor1.jpg", x:49, y:74},
+  "obedience": {floor:"floor1.jpg", x:78, y:65},
+  "restroom 1": {floor:"floor1.jpg", x:38, y:15},
 
-    if (input.trim() === "") {
-        resultsDiv.style.display = "none";
-        return;
+  // FLOOR 2
+  "humility": {floor:"floor2.jpg", x:21, y:65},
+  "honesty": {floor:"floor2.jpg", x:27, y:48},
+  "prudence": {floor:"floor2.jpg", x:31, y:33},
+  "competence": {floor:"floor2.jpg", x:35, y:23},
+  "patience": {floor:"floor2.jpg", x:68, y:7},
+  "discernment": {floor:"floor2.jpg", x:67, y:63},
+  "courage": {floor:"floor2.jpg", x:58, y:69},
+  "wisdom": {floor:"floor2.jpg", x:49, y:74},
+  "faculty": {floor:"floor2.jpg", x:78, y:65},
+  "guidance": {floor:"floor2.jpg", x:38, y:13},
+  "clinic": {floor:"floor2.jpg", x:38, y:13},
+  "restroom 2": {floor:"floor2.jpg", x:38, y:15},
+
+  // FLOOR 3
+  "sound": {floor:"floor3.jpg", x:21, y:65},
+  "robotics": {floor:"floor3.jpg", x:31, y:33},
+  "gratitude": {floor:"floor3.jpg", x:27, y:50},
+  "unity": {floor:"floor3.jpg", x:27, y:50},
+  "grace": {floor:"floor3.jpg", x:35, y:25},
+  "tranquility": {floor:"floor3.jpg", x:78, y:67},
+  "righteousness": {floor:"floor3.jpg", x:75, y:48},
+  "fortitude": {floor:"floor3.jpg", x:72, y:33},
+  "excellence": {floor:"floor3.jpg", x:72, y:33},
+  "justice": {floor:"floor3.jpg", x:69, y:21},
+  "frugality": {floor:"floor3.jpg", x:69, y:21},
+  "industry": {floor:"floor3.jpg", x:68, y:10},
+  "restroom 3": {floor:"floor3.jpg", x:38, y:15}
+};
+
+// HELPER TO SHOW PIN
+function showPin(x, y) {
+  pin.style.left = x + "%";
+  pin.style.top = y + "%";
+  pin.style.display = "block";
+}
+
+// NORMALIZE STRINGS (remove spaces, lowercase)
+function normalize(str) {
+  return str.toLowerCase().replace(/\s+/g, "").replace(/[^a-z0-9]/g,"");
+}
+
+// SEARCH FUNCTION
+function handleSearch() {
+  let input = normalize(document.getElementById("roomInput").value);
+  if (!input) return;
+
+  for (let key in rooms) {
+    if (normalize(key).includes(input)) {
+      document.getElementById("activeMap").src = rooms[key].floor;
+      showPin(rooms[key].x, rooms[key].y);
+      return;
     }
+  }
 
-    const filtered = directory.filter(item => 
-        item.name.toLowerCase().includes(input) || 
-        item.tags.toLowerCase().includes(input)
-    );
+  alert("Room not found. Try typing the section name, e.g., 'perseverance', 'guidance', or 'justice'.");
+}
 
-    if (filtered.length > 0) {
-        resultsDiv.style.display = "block";
-        filtered.forEach(item => {
-            resultsDiv.innerHTML += `
-                <div class="result-item">
-                    <div class="result-header">
-                        <strong>${item.name}</strong>
-                        <span class="location-tag">📍 ${item.location}</span>
-                    </div>
-                    <p class="directions">${item.info}</p>
-                </div>
-            `;
-        });
-    } else {
-        resultsDiv.style.display = "block";
-        resultsDiv.innerHTML = `<div class="result-item">No matches found for "${input}". Check your spelling or try "CR" or "Office".</div>`;
+
+// Search function
+function handleSearch() {
+    let input = document.getElementById("roomInput").value.toLowerCase().trim();
+    if (!input) return;
+
+    for (let key in rooms) {
+        if (input.includes(key)) {
+            document.getElementById("activeMap").src = rooms[key].floor;
+            showPin(rooms[key].x, rooms[key].y);
+
+            // activate correct floor button
+            document.querySelectorAll(".f-btn").forEach(btn => btn.classList.remove("active"));
+            if (rooms[key].floor === "floor1.jpg") document.querySelector(".f-btn:nth-child(1)").classList.add("active");
+            else if (rooms[key].floor === "floor2.jpg") document.querySelector(".f-btn:nth-child(2)").classList.add("active");
+            else if (rooms[key].floor === "floor3.jpg") document.querySelector(".f-btn:nth-child(3)").classList.add("active");
+
+            return;
+        }
     }
+    alert("Room not found. Please try again!");
 }

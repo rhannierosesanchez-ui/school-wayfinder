@@ -2,89 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SJCNI Wayfinder</title>
+    <title>SJCNI | Campus Wayfinder</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div class="nav-content">
-            <img src="logo.png" alt="SJC Logo" class="nav-logo">
-            <div class="school-titles">
-                <span class="college-name">St. Joseph College of Novaliches Inc.</span>
-                <span class="app-name">SJCNI WAYFINDER</span>
-            </div>
-        </div>
+<!-- NAVBAR -->
+<header class="top-nav">
+    <div class="logo-area">
+        <img src="logo.png" alt="SJCNI Logo">
+        <span class="brand-name">St. Joseph College of Novaliches, Inc.</span>
+    </div>
+    <nav class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
     </nav>
+</header>
 
-    <main class="main-content">
-        
-        <section class="search-section">
-            <div class="search-container">
-                <input type="text" id="userInput" placeholder="Search destinations (e.g., Library, Clinic)...">
-                <button onclick="searchFunction()" class="btn-search">FIND ROUTE</button>
-            </div>
-        </section>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1>Interactive Campus Wayfinder</h1>
+            <p>Find your destination inside the SJCNI campus</p>
 
-        <div class="floor-nav">
-            <button onclick="changeFloor('floor1.jpg')" class="floor-btn">GROUND FLOOR</button>
-            <button onclick="changeFloor('floor2.jpg')" class="floor-btn">SECOND FLOOR</button>
-            <button onclick="changeFloor('floor3.jpg')" class="floor-btn">THIRD FLOOR</button>
-        </div>
-
-        <div class="viewer-container" id="viewerContainer">
-            <div id="mainView" class="view-panel big">
-                <img src="floor1.jpg" id="mainMap" class="base-map">
-                <img src="path-library.png" id="line-library" class="path-layer" style="display:none;">
-            </div>
-
-            <div id="miniView" class="view-panel small" onclick="swapViews()">
-                <div class="overlay-label">TAP TO SWAP VIEW</div>
-                <iframe id="panoeeFrame" src="https://panoee.com/YOUR_ID_HERE" allowfullscreen></iframe>
+            <div class="search-box">
+                <input type="text" id="roomInput" placeholder="Search a room...">
+                <button onclick="handleSearch()">Search</button>
             </div>
         </div>
-    </main>
+    </div>
+</section>
 
-    <footer class="footer">
-        <p>&copy; 2026 St. Joseph College of Novaliches Inc.</p>
-        <p class="dev-credits">DEVELOPED BY INNOVENTURES</p>
-    </footer>
+<!-- MAIN CONTENT -->
+<section class="wayfinder-wrapper">
 
-    <script>
-        let isMapBig = true;
+    <!-- MAP + Floors -->
+    <div class="map-section">
+        <div class="floor-pills">
+            <button class="f-btn active" onclick="setFloor('floor1.jpg', this)">LEVEL 1</button>
+            <button class="f-btn" onclick="setFloor('floor2.jpg', this)">LEVEL 2</button>
+            <button class="f-btn" onclick="setFloor('floor3.jpg', this)">LEVEL 3</button>
+        </div>
+        <div class="map-container">
+            <img src="floor1.jpg" id="activeMap">
+            <div id="pin" class="map-marker"></div>
+        </div>
+    </div>
 
-        function swapViews() {
-            const mainView = document.getElementById('mainView');
-            const miniView = document.getElementById('miniView');
-            if (isMapBig) {
-                mainView.className = "view-panel small";
-                miniView.className = "view-panel big";
-            } else {
-                mainView.className = "view-panel big";
-                miniView.className = "view-panel small";
-            }
-            isMapBig = !isMapBig;
-        }
+    <!-- STREETVIEW FLOATING -->
+    <div id="streetview-floating">
+        <iframe id="tour-embeded" 
+            src="https://tour.panoee.net/iframe/696b30cbd66679444968af3c" 
+            frameborder="0" 
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen
+            scrolling="no">
+        </iframe>
+    </div>
 
-        function changeFloor(fileName) {
-            document.getElementById('mainMap').src = fileName;
-        }
+</section>
 
-        function searchFunction() {
-            let input = document.getElementById('userInput').value.toLowerCase();
-            // Hide all lines first
-            document.querySelectorAll('.path-layer').forEach(l => l.style.display = 'none');
-
-            if (input === "library") {
-                changeFloor('floor1.jpg');
-                document.getElementById('line-library').style.display = "block";
-                alert("Path to Library is now visible!");
-            } else {
-                alert("Location not found.");
-            }
-        }
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
