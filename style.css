@@ -311,23 +311,25 @@
 
     .wayfinder-wrapper { 
         display: block !important; 
-        padding: 15px 10px !important; /* Added slightly more padding for clear separation */
+        padding: 15px 10px !important;
     }
 
+    /* UPDATED: Increased width to make Fullscreen Toggle visible */
     #streetview-floating {
-        width: 180px !important; 
-        height: 110px !important;
+        width: 260px !important; 
+        height: 160px !important;
         bottom: 15px !important;
         right: 15px !important;
+        z-index: 2000 !important; /* Ensure it stays above footer */
     }
 
     /* THE MOBILE FOOTER FIX */
     .site-footer {
-        background: #000 !important; /* Deep black for better mobile contrast */
-        color: white !important; /* Brighter text for mobile screens */
+        background: #000 !important;
+        color: white !important;
         font-size: 0.75rem;
         padding: 25px 15px !important;
-        padding-bottom: 120px !important; /* CRITICAL: Prevents Streetview from blocking copyright */
+        padding-bottom: 180px !important; /* Increased to accommodate the taller streetview */
         position: relative !important;
         z-index: 1 !important;
     }
