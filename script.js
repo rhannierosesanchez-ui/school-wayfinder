@@ -1,24 +1,26 @@
 // 1. INTRO OVERLAY LOGIC
-window.addEventListener('load', function() {
-    setTimeout(function() {
+window.addEventListener('load', () => {
+    setTimeout(() => {
         const overlay = document.getElementById('intro-overlay');
-        if (overlay) {
-            overlay.classList.add('intro-hidden');
-        }
-    }, 2500); // 2.5 seconds for the dark professional intro
+        if (overlay) overlay.classList.add('intro-hidden');
+    }, 2500); 
 });
 
 // 2. FLOOR NAVIGATION
 function setFloor(imgSrc, element) {
-    document.getElementById("activeMap").src = imgSrc;
+    const activeMap = document.getElementById("activeMap");
+    const pin = document.getElementById("pin");
+    const pathLine = document.getElementById("pathLine");
+
+    activeMap.src = imgSrc;
     
     // Update Button UI
     document.querySelectorAll(".f-btn").forEach(btn => btn.classList.remove("active"));
     if(element) element.classList.add("active");
     
-    // HIDE pin and path when manually changing floors
-    document.getElementById("pin").style.display = "none";
-    document.getElementById("pathLine").style.display = "none";
+    // Reset indicators when manually changing floors
+    pin.style.display = "none";
+    pathLine.style.display = "none";
 }
 
 // 3. ROOM DATA
@@ -69,8 +71,8 @@ const rooms = {
 // 4. HELPERS
 function showPin(x, y) {
     const pin = document.getElementById("pin");
-    pin.style.left = x + "%";
-    pin.style.top = y + "%";
+    pin.style.left = `${x}%`;
+    pin.style.top = `${y}%`;
     pin.style.display = "block";
 }
 
@@ -80,7 +82,8 @@ function normalize(str) {
 
 // 5. SEARCH LOGIC
 function handleSearch() {
-    let input = normalize(document.getElementById("roomInput").value);
+    const inputVal = document.getElementById("roomInput").value;
+    let input = normalize(inputVal);
     if (!input) return;
 
     const pathLine = document.getElementById("pathLine");
@@ -92,7 +95,7 @@ function handleSearch() {
             activeMap.src = rooms[key].floor;
 
             // Auto-highlight the correct floor button
-            const floorNum = rooms[key].floor.match(/\d/)[0]; // gets "1", "2", or "3"
+            const floorNum = rooms[key].floor.match(/\d/)[0]; 
             document.querySelectorAll(".f-btn").forEach(btn => {
                 btn.classList.toggle("active", btn.innerText.includes(floorNum));
             });
@@ -105,4 +108,23 @@ function handleSearch() {
         }
     }
     alert("Room not found. Try typing the section name.");
+}
+
+// 6. INTERACTIVE STREETVIEW (Mobile Only)
+const panoBox = document.getElementById('streetview-floating');
+if (panoBox) {
+    panoBox.addEventListener('click', function() {
+        if (window.innerWidth <= 480) {
+            this.style.width = "280px";
+            this.style.height = "180px";
+        }
+    });
+
+    // Shrink back when tapping the map
+    document.getElementById('activeMap').addEventListener('click', () => {
+        if (window.innerWidth <= 480) {
+            panoBox.style.width = "220px";
+            panoBox.style.height = "140px";
+        }
+    });
 }

@@ -27,9 +27,7 @@
     gap: 15px;
 }
 
-.logo-area img {
-    height: 50px;
-}
+.logo-area img { height: 50px; }
 
 .brand-name {
     font-weight: 800;
@@ -39,7 +37,7 @@
 
 .nav-links {
     display: flex;
-    gap: 30px; /* Desktop gap */
+    gap: 30px;
 }
 
 .nav-links a {
@@ -49,9 +47,7 @@
     transition: 0.3s;
 }
 
-.nav-links a:hover {
-    color: var(--sj-red);
-}
+.nav-links a:hover { color: var(--sj-red); }
 
 /* --- HERO --- */
 .hero {
@@ -76,10 +72,9 @@
     padding: 0 20px;
 }
 
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
+.hero-content h1 { font-size: 3rem; margin-bottom: 10px; }
+
+.hero-content p { font-size: 1.2rem; margin-bottom: 30px; }
 
 /* --- SEARCH --- */
 .search-box {
@@ -125,6 +120,9 @@
     max-width: 1000px;
 }
 
+.map-container { position: relative; }
+.map-container img { width: 100%; border-radius: 12px; }
+
 .floor-pills {
     display: flex;
     gap: 12px;
@@ -142,19 +140,7 @@
     cursor: pointer;
 }
 
-.f-btn.active {
-    background: var(--sj-red);
-    color: white;
-}
-
-.map-container {
-    position: relative;
-}
-
-.map-container img {
-    width: 100%;
-    border-radius: 12px;
-}
+.f-btn.active { background: var(--sj-red); color: white; }
 
 .map-marker {
     position: absolute;
@@ -170,10 +156,7 @@
 
 .path-line {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     display: none;
     z-index: 5;
@@ -192,19 +175,10 @@
     z-index: 1000;
     background: white;
     border: 2px solid white;
+    transition: all 0.3s ease; /* Smooth transition when clicked */
 }
 
-#streetview-floating iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* This allows the iframe to actually expand when fullscreen is clicked */
-iframe:fullscreen {
-    width: 100vw !important;
-    height: 100vh !important;
-}
+#streetview-floating iframe { width: 100%; height: 100%; border: none; }
 
 /* --- INTRO OVERLAY --- */
 #intro-overlay {
@@ -218,10 +192,8 @@ iframe:fullscreen {
     transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
 }
 
-.intro-box { text-align: center; }
 .intro-logo { 
-    height: 130px; 
-    margin-bottom: 20px;
+    height: 130px; margin-bottom: 20px;
     filter: drop-shadow(0 0 20px rgba(179, 0, 0, 0.6));
     animation: pulseGlow 2.5s infinite; 
 }
@@ -232,78 +204,55 @@ iframe:fullscreen {
 }
 
 #intro-overlay h2 {
-    color: white;
-    font-size: 2.2rem;
+    color: white; font-size: 2.2rem;
     background: linear-gradient(to right, #ffffff, var(--sj-red));
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .loader {
-    border: 3px solid #222;
-    border-top: 3px solid var(--sj-red);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 0.8s linear infinite;
-    margin: 30px auto;
+    border: 3px solid #222; border-top: 3px solid var(--sj-red);
+    border-radius: 50%; width: 40px; height: 40px;
+    animation: spin 0.8s linear infinite; margin: 30px auto;
 }
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
-.intro-hidden {
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-}
+.intro-hidden { transform: translateY(-100%); opacity: 0; visibility: hidden; }
 
 /* --- MASTER MOBILE OVERRIDES --- */
 @media (max-width: 480px) {
     .top-nav {
-        padding: 10px 4%;
-        flex-direction: column; /* Stacks logo above links to save space */
-        gap: 8px;
+        padding: 15px 4%;
+        flex-direction: column; 
+        gap: 12px;
     }
 
-    .brand-name {
-        font-size: 1rem !important;
-    }
+    .brand-name { font-size: 1rem !important; text-align: center; }
 
     .nav-links {
-        gap: 40px !important; /* FORCED BIG GAP between Home and About */
+        gap: 60px !important; /* Forces large space between Home/About */
     }
 
-    .hero { height: 250px; }
+    .hero { height: 320px; }
     .hero-content h1 { font-size: 1.5rem !important; }
+    .hero-content p { margin-bottom: 35px !important; } /* Spacing fix for Search bar */
 
-    .search-box {
-        flex-direction: column;
-        width: 95%;
-        border-radius: 15px;
+    .search-box { flex-direction: column; width: 95%; border-radius: 15px; }
+    .search-box button { border-radius: 0 0 15px 15px; }
+
+    .wayfinder-wrapper { 
+        display: block; 
+        padding: 10px; 
+        padding-bottom: 160px; /* Space so Panoee doesn't cover buttons */
     }
 
-    .search-box button {
-        border-radius: 0 0 15px 15px;
-    }
-
-    .wayfinder-wrapper {
-        display: block;
-        padding: 10px;
-    }
-
-    .floor-pills {
-        flex-wrap: wrap;
-    }
-
-    .f-btn {
-        flex: 1 1 40%;
-        padding: 8px;
-        font-size: 0.8rem;
-    }
+    .f-btn { flex: 1 1 40%; padding: 8px; font-size: 0.8rem; }
 
     #streetview-floating {
-        width: 140px;
-        height: 90px;
+        width: 220px !important; /* Larger landscape view for phones */
+        height: 140px !important;
         bottom: 15px;
         right: 15px;
     }
