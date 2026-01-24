@@ -10,13 +10,15 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* NAVBAR */
+/* --- NAVBAR --- */
 .top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 6%;
     background: white;
+    position: relative;
+    z-index: 100;
 }
 
 .logo-area {
@@ -35,14 +37,23 @@
     color: var(--sj-red);
 }
 
+.nav-links {
+    display: flex;
+    gap: 30px; /* Desktop gap */
+}
+
 .nav-links a {
-    margin-left: 30px;
     text-decoration: none;
     color: var(--sj-dark);
     font-weight: 600;
+    transition: 0.3s;
 }
 
-/* HERO */
+.nav-links a:hover {
+    color: var(--sj-red);
+}
+
+/* --- HERO --- */
 .hero {
     height: 420px;
     background: url('campus-bg.png') center/cover no-repeat;
@@ -62,6 +73,7 @@
     color: white;
     text-align: center;
     max-width: 800px;
+    padding: 0 20px;
 }
 
 .hero-content h1 {
@@ -69,17 +81,13 @@
     margin-bottom: 10px;
 }
 
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-/* SEARCH */
+/* --- SEARCH --- */
 .search-box {
     display: flex;
     background: white;
     border-radius: 50px;
     overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .search-box input {
@@ -87,6 +95,7 @@
     border: none;
     padding: 15px 25px;
     font-size: 1rem;
+    outline: none;
 }
 
 .search-box button {
@@ -98,17 +107,15 @@
     cursor: pointer;
 }
 
-/* WAYFINDER LAYOUT */
+/* --- WAYFINDER LAYOUT --- */
 .wayfinder-wrapper {
     display: flex;
     justify-content: center;
     gap: 40px;
     padding: 60px 6%;
     background: #f4f4f4;
-    position: relative;
 }
 
-/* MAP */
 .map-section {
     background: white;
     padding: 25px;
@@ -149,7 +156,6 @@
     border-radius: 12px;
 }
 
-/* PIN */
 .map-marker {
     position: absolute;
     width: 22px;
@@ -162,124 +168,49 @@
     z-index: 10;
 }
 
-/* FLOATING STREETVIEW */
-#streetview-floating {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 320px;
-    height: 200px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    z-index: 1000;
-    background: white;
-}
-
-#streetview-floating {
-    width: 160px;
-    height: 110px;
-    bottom: 15px; /* Lift it up slightly */
-    right: 15px;
-    border: 2px solid white; /* Adds a nice border to make it stand out */
-}
-
-/* MOBILE OPTIMIZED FOR PHONES */
-@media (max-width: 480px) {
-
-  /* HERO */
-  .hero {
-    height: 300px; /* shorter hero */
-  }
-
-  .hero-content h1 {
-    font-size: 1.6rem;
-    margin-bottom: 8px;
-  }
-
-  .hero-content p {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
-  }
-
-  /* SEARCH */
-  .search-box {
-    flex-direction: column;
-    width: 90%;
-    margin: 0 auto;
-    border-radius: 20px;
-  }
-
-  .search-box input {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
-
-  .search-box button {
-    padding: 10px;
-    width: 100%;
-    border-radius: 0 0 20px 20px;
-    font-size: 0.9rem;
-  }
-
-  /* WAYFINDER */
-  .wayfinder-wrapper {
-    grid-template-columns: 1fr;
-    padding: 15px 4%;
-    gap: 20px;
-  }
-
-  .map-section {
-    padding: 15px;
-  }
-
-  .map-container img {
-    width: 100%;
-    border-radius: 10px;
-  }
-
-  .floor-pills {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 12px;
-  }
-
-  .f-btn {
-    flex: 1 1 40%;
-    font-size: 0.8rem;
-    padding: 6px 10px;
-  }
-
-  /* FLOATING STREETVIEW */
-  #streetview-floating {
-    width: 180px;
-    height: 120px;
-    bottom: 8px;
-    right: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-  }
-
-  #streetview-floating iframe {
-    width: 100%;
-    height: 100%;
-  }
-}/* PATH LINE */
 .path-line {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* user can't click it */
+    pointer-events: none;
     display: none;
     z-index: 5;
-}/* Intro Overlay Styles */
-/* OPTION 2: DARK PROFESSIONAL INTRO */
+}
+
+/* --- STREETVIEW --- */
+#streetview-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 160px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    z-index: 1000;
+    background: white;
+    border: 2px solid white;
+}
+
+#streetview-floating iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* This allows the iframe to actually expand when fullscreen is clicked */
+iframe:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+/* --- INTRO OVERLAY --- */
 #intro-overlay {
     position: fixed;
     inset: 0;
-    background: #0a0a0a; /* Deep tech black */
+    background: #0a0a0a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -287,38 +218,25 @@
     transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
 }
 
-.intro-box {
-    text-align: center;
-}
-
+.intro-box { text-align: center; }
 .intro-logo { 
     height: 130px; 
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 20px rgba(179, 0, 0, 0.6)); /* Red glow */
+    filter: drop-shadow(0 0 20px rgba(179, 0, 0, 0.6));
     animation: pulseGlow 2.5s infinite; 
 }
 
 @keyframes pulseGlow {
-    0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(179, 0, 0, 0.4)); }
-    50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(179, 0, 0, 0.8)); }
-    100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(179, 0, 0, 0.4)); }
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(179,0,0,0.4)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(179,0,0,0.8)); }
 }
 
 #intro-overlay h2 {
     color: white;
     font-size: 2.2rem;
-    letter-spacing: 2px;
-    font-weight: 800;
-    margin-bottom: 10px;
     background: linear-gradient(to right, #ffffff, var(--sj-red));
     background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
-#intro-overlay p {
-    color: #888;
-    font-size: 1rem;
-    letter-spacing: 1px;
 }
 
 .loader {
@@ -329,88 +247,64 @@
     height: 40px;
     animation: spin 0.8s linear infinite;
     margin: 30px auto;
-    box-shadow: 0 0 15px rgba(179, 0, 0, 0.5);
 }
 
-@keyframes spin { 
-    0% { transform: rotate(0deg); } 
-    100% { transform: rotate(360deg); } 
-}
+@keyframes spin { 100% { transform: rotate(360deg); } }
 
-/* Slide Up Effect */
 .intro-hidden {
     transform: translateY(-100%);
     opacity: 0;
-}
-
-/* When we hide it */
-.intro-hidden {
-    opacity: 0;
     visibility: hidden;
-}/* MOBILE OPTIMIZED FOR PHONES */
+}
+
+/* --- MASTER MOBILE OVERRIDES --- */
 @media (max-width: 480px) {
+    .top-nav {
+        padding: 10px 4%;
+        flex-direction: column; /* Stacks logo above links to save space */
+        gap: 8px;
+    }
 
-  /* HERO - Fixing the height and text size */
-  .hero {
-    height: 250px; 
-  }
+    .brand-name {
+        font-size: 1rem !important;
+    }
 
-  .hero-content h1 {
-    font-size: 1.4rem !important;
-    margin-bottom: 8px;
-  }
+    .nav-links {
+        gap: 40px !important; /* FORCED BIG GAP between Home and About */
+    }
 
-  .hero-content p {
-    font-size: 0.8rem;
-    margin-bottom: 15px;
-  }
+    .hero { height: 250px; }
+    .hero-content h1 { font-size: 1.5rem !important; }
 
-  /* SEARCH - Making it fit the screen width */
-  .search-box {
-    flex-direction: column;
-    width: 90%;
-    margin: 0 auto;
-    border-radius: 15px;
-  }
+    .search-box {
+        flex-direction: column;
+        width: 95%;
+        border-radius: 15px;
+    }
 
-  .search-box input {
-    padding: 12px;
-    font-size: 0.9rem;
-    text-align: center;
-  }
+    .search-box button {
+        border-radius: 0 0 15px 15px;
+    }
 
-  .search-box button {
-    padding: 12px;
-    width: 100%;
-    border-radius: 0 0 15px 15px;
-  }
+    .wayfinder-wrapper {
+        display: block;
+        padding: 10px;
+    }
 
-  /* WAYFINDER - Removing the extra side space */
-  .wayfinder-wrapper {
-    display: block; /* Stack things vertically */
-    padding: 10px 5%;
-    gap: 15px;
-  }
+    .floor-pills {
+        flex-wrap: wrap;
+    }
 
-  .map-section {
-    padding: 10px;
-    width: 100%;
-  }
+    .f-btn {
+        flex: 1 1 40%;
+        padding: 8px;
+        font-size: 0.8rem;
+    }
 
-  /* FLOATING STREETVIEW - Smaller for mobile so it doesn't block the map */
-  #streetview-floating {
-    width: 150px;
-    height: 100px;
-    bottom: 10px;
-    right: 10px;
-  }
-}.nav-links {
-    display: flex;
-    gap: 15px; /* Adds space specifically between the two links */
+    #streetview-floating {
+        width: 140px;
+        height: 90px;
+        bottom: 15px;
+        right: 15px;
+    }
 }
-
-.nav-links a {
-    margin-left: 0; /* Clears the old margin that might be causing alignment issues */
-    font-size: 0.85rem;
-}
-

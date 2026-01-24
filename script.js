@@ -1,36 +1,27 @@
+// 1. INTRO OVERLAY LOGIC
 window.addEventListener('load', function() {
     setTimeout(function() {
         const overlay = document.getElementById('intro-overlay');
         if (overlay) {
             overlay.classList.add('intro-hidden');
         }
-    }, 2500); 
+    }, 2500); // 2.5 seconds for the dark professional intro
 });
-window.addEventListener('load', function() {
-    setTimeout(function() {
-        document.getElementById('intro-overlay').classList.add('intro-hidden');
-    }, 2000); // 2000 = 2 seconds
-});
-// Handle floor buttons
+
+// 2. FLOOR NAVIGATION
 function setFloor(imgSrc, element) {
     document.getElementById("activeMap").src = imgSrc;
+    
+    // Update Button UI
     document.querySelectorAll(".f-btn").forEach(btn => btn.classList.remove("active"));
     if(element) element.classList.add("active");
-    const pin = document.getElementById("pin");
-    pin.style.display = "none"; // hide pin when changing floor
+    
+    // HIDE pin and path when manually changing floors
+    document.getElementById("pin").style.display = "none";
+    document.getElementById("pathLine").style.display = "none";
 }
 
-// Red pin function
-function showPin(x, y) {
-    const pin = document.getElementById("pin");
-    pin.style.left = x + "%";
-    pin.style.top = y + "%";
-    pin.style.display = "block";
-}
-
-// Rooms with coordinates
-const pin = document.getElementById("pin");
-
+// 3. ROOM DATA
 const rooms = {
   // FLOOR 1
   "registrar": { floor:"floor1.jpg", x:21, y:65, line:"line-registrar.png" },
@@ -75,40 +66,43 @@ const rooms = {
   "restroom 3": { floor:"floor3.jpg", x:38, y:15, line:"line-restroom3.png" }
 };
 
-// HELPER TO SHOW PIN
+// 4. HELPERS
 function showPin(x, y) {
-  pin.style.left = x + "%";
-  pin.style.top = y + "%";
-  pin.style.display = "block";
+    const pin = document.getElementById("pin");
+    pin.style.left = x + "%";
+    pin.style.top = y + "%";
+    pin.style.display = "block";
 }
 
-// NORMALIZE STRINGS (remove spaces, lowercase)
 function normalize(str) {
-  return str.toLowerCase().replace(/\s+/g, "").replace(/[^a-z0-9]/g,"");
+    return str.toLowerCase().replace(/\s+/g, "").replace(/[^a-z0-9]/g,"");
 }
 
-// SEARCH FUNCTION
+// 5. SEARCH LOGIC
 function handleSearch() {
-  let input = normalize(document.getElementById("roomInput").value);
-  if (!input) return;
+    let input = normalize(document.getElementById("roomInput").value);
+    if (!input) return;
 
-  const pathLine = document.getElementById("pathLine");
+    const pathLine = document.getElementById("pathLine");
+    const activeMap = document.getElementById("activeMap");
 
-  for (let key in rooms) {
-    if (normalize(key).includes(input)) {
-      document.getElementById("activeMap").src = rooms[key].floor;
+    for (let key in rooms) {
+        if (normalize(key).includes(input)) {
+            // Switch to correct floor image
+            activeMap.src = rooms[key].floor;
 
-      // SHOW PIN
-      showPin(rooms[key].x, rooms[key].y);
+            // Auto-highlight the correct floor button
+            const floorNum = rooms[key].floor.match(/\d/)[0]; // gets "1", "2", or "3"
+            document.querySelectorAll(".f-btn").forEach(btn => {
+                btn.classList.toggle("active", btn.innerText.includes(floorNum));
+            });
 
-      // SHOW LINE
-      pathLine.src = rooms[key].line;
-      pathLine.style.display = "block";
-
-      return;
+            // Show Pin & Path
+            showPin(rooms[key].x, rooms[key].y);
+            pathLine.src = rooms[key].line;
+            pathLine.style.display = "block";
+            return;
+        }
     }
-  }
-
-  alert("Room not found. Try typing the section name.");
+    alert("Room not found. Try typing the section name.");
 }
-
