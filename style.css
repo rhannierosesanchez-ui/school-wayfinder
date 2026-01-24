@@ -219,7 +219,6 @@
     width: 100%;
 }
 
-/* --- INTRO LOGO & GLOW --- */
 .intro-logo {
     height: 130px;
     width: auto;
@@ -243,7 +242,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
-    display: block !important;
 }
 
 #intro-overlay p {
@@ -251,7 +249,6 @@
     font-size: 1.1rem;
     margin-top: 10px;
     letter-spacing: 1px;
-    display: block !important;
 }
 
 .loader {
@@ -264,7 +261,7 @@
 
 .intro-hidden { transform: translateY(-100%); opacity: 0; visibility: hidden; transition: 0.5s; }
 
-/* --- FOOTER --- */
+/* --- FOOTER (DESKTOP) --- */
 .site-footer {
     width: 100%;
     background: var(--sj-dark);
@@ -273,62 +270,59 @@
     padding: 30px 20px;
     font-size: 0.9rem;
     border-top: 2px solid var(--sj-red);
+    position: relative;
+    display: block;
 }
 
-/* --- MOBILE OVERRIDES (SAFE MERGE) --- */
-@media (max-width: 480px) {
+/* --- MOBILE OVERRIDES (EXTREME FIX) --- */
+@media screen and (max-width: 480px) {
     .top-nav {
         padding: 10px 4% !important;
         flex-direction: row !important; 
         justify-content: flex-start !important; 
-        align-items: center !important;
-        gap: 10px !important;
+        display: flex !important;
     }
 
     .logo-area {
         display: flex !important;
-        flex-direction: row !important; 
-        align-items: center !important;
-        justify-content: flex-start !important;
+        flex-direction: row !important;
         width: auto !important;
-        gap: 8px !important;
     }
 
-    .logo-area img { height: 35px !important; margin: 0 !important; }
+    .logo-area img { height: 35px !important; margin-right: 10px !important; }
 
     .brand-name { 
         font-size: 0.85rem !important; 
         text-align: left !important;
-        width: auto !important;
-        display: inline-block !important;
+        display: block !important;
     }
 
     .nav-links { display: none !important; }
 
-    .hero { height: 320px; }
-    .hero-content h1 { font-size: 1.5rem !important; }
-    .search-box { flex-direction: column; }
-
     .wayfinder-wrapper { 
         display: block !important; 
-        padding: 15px 10px !important; /* Added slightly more padding for clear separation */
+        width: 100% !important;
+        padding: 10px !important;
+        margin: 0 !important;
     }
 
     #streetview-floating {
-        width: 180px !important; 
-        height: 110px !important;
+        width: 160px !important; 
+        height: 100px !important;
         bottom: 15px !important;
         right: 15px !important;
     }
 
-    /* THE MOBILE FOOTER FIX */
+    /* FORCED FOOTER FIX */
     .site-footer {
-        background: #000 !important; /* Deep black for better mobile contrast */
-        color: white !important; /* Brighter text for mobile screens */
-        font-size: 0.75rem;
-        padding: 25px 15px !important;
-        padding-bottom: 120px !important; /* CRITICAL: Prevents Streetview from blocking copyright */
-        position: relative !important;
-        z-index: 1 !important;
+        display: block !important;
+        width: 100% !important;
+        min-height: 180px !important; /* Force extra space */
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        padding: 40px 10px 140px 10px !important; /* Huge bottom padding to clear the Panoee box */
+        margin: 0 !important;
+        border-top: 3px solid var(--sj-red) !important;
+        font-size: 0.75rem !important;
     }
 }
