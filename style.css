@@ -73,7 +73,6 @@
 }
 
 .hero-content h1 { font-size: 3rem; margin-bottom: 10px; }
-
 .hero-content p { font-size: 1.2rem; margin-bottom: 30px; }
 
 /* --- SEARCH --- */
@@ -142,7 +141,7 @@
 
 .f-btn.active { background: var(--sj-red); color: white; }
 
-/* --- UPDATED MAP MARKER WITH PULSING GLOW --- */
+/* --- MAP MARKER PULSING --- */
 .map-marker {
     position: absolute;
     width: 22px;
@@ -171,20 +170,20 @@
     z-index: 5;
 }
 
-/* --- UPDATED STREETVIEW (FIXED SIZE & DRAGGABLE HINT) --- */
+/* --- STREETVIEW --- */
 #streetview-floating {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    width: 350px;  /* Reduced from 450px to prevent blocking map */
-    height: 220px; /* Adjusted height for 350px width */
+    width: 350px; 
+    height: 220px; 
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 12px 30px rgba(0,0,0,0.4);
     z-index: 1000;
     background: white;
     border: 3px solid white;
-    cursor: grab; /* Shows user it is movable */
+    cursor: grab;
 }
 
 #streetview-floating:active { cursor: grabbing; }
@@ -205,6 +204,7 @@
     inset: 0;
     background: #0a0a0a;
     display: flex !important;
+    flex-direction: column !important; /* Forces vertical alignment for content */
     align-items: center !important;
     justify-content: center !important;
     z-index: 9999;
@@ -219,21 +219,39 @@
     width: 100%;
 }
 
-.intro-logo { 
-    height: 130px; 
+/* --- INTRO LOGO & GLOW --- */
+.intro-logo {
+    height: 130px;
     width: auto;
+    margin-bottom: 20px;
     display: block;
-    margin: 0 auto 20px auto;
-    filter: drop-shadow(0 0 20px rgba(179, 0, 0, 0.6));
-    animation: pulseGlow 2.5s infinite; 
+    animation: pulseGlow 2.5s infinite ease-in-out; 
+}
+
+@keyframes pulseGlow {
+    0% { filter: drop-shadow(0 0 10px rgba(179, 0, 0, 0.4)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 30px rgba(179, 0, 0, 0.9)); transform: scale(1.05); }
+    100% { filter: drop-shadow(0 0 10px rgba(179, 0, 0, 0.4)); transform: scale(1); }
 }
 
 #intro-overlay h2 {
-    color: white; font-size: 2.2rem;
+    color: white !important; 
+    font-size: 2.2rem;
+    margin-top: 20px;
     background: linear-gradient(to right, #ffffff, var(--sj-red));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    display: block !important;
+}
+
+#intro-overlay p {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    display: block !important;
 }
 
 .loader {
@@ -244,57 +262,65 @@
 
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
-.intro-hidden { transform: translateY(-100%); opacity: 0; visibility: hidden; }
+.intro-hidden { transform: translateY(-100%); opacity: 0; visibility: hidden; transition: 0.5s; }
 
-/* --- MASTER MOBILE OVERRIDES --- */
+/* --- FOOTER --- */
+.site-footer {
+    width: 100%;
+    background: var(--sj-dark);
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9rem;
+    border-top: 2px solid var(--sj-red);
+}
+
+/* --- MOBILE OVERRIDES --- */
 @media (max-width: 480px) {
     .top-nav {
-        padding: 10px 4%;
-        flex-direction: row; /* Fixed back to row to keep logo beside text */
-        justify-content: space-between;
-        align-items: center;
-        gap: 0;
+        padding: 10px 4% !important;
+        flex-direction: row !important; /* Force Side-by-Side */
+        justify-content: flex-start !important; /* Aligns to Left */
+        align-items: center !important;
+        gap: 10px !important;
     }
 
     .logo-area {
-        flex-direction: row; /* Logo beside text */
-        align-items: center;
-        text-align: left;
-        gap: 8px;
+        display: flex !important;
+        flex-direction: row !important; /* Image beside Text */
+        align-items: center !important;
+        justify-content: flex-start !important;
+        width: auto !important;
+        gap: 8px !important;
     }
 
-    .logo-area img { height: 35px; } /* Slightly smaller for mobile row */
+    .logo-area img { height: 35px !important; margin: 0 !important; }
 
     .brand-name { 
-        font-size: 0.9rem !important; 
-        width: auto;
+        font-size: 0.85rem !important; 
+        text-align: left !important;
+        width: auto !important;
+        display: inline-block !important;
     }
 
-    .nav-links {
-        display: none; /* Usually hidden on mobile unless you have a burger menu, 
-                          but keeping them spaced if you want them visible: */
-        /* display: flex; gap: 15px; width: auto; */
-    }
+    .nav-links { display: none !important; }
 
     .hero { height: 320px; }
     .hero-content h1 { font-size: 1.5rem !important; }
-    .hero-content p { margin-bottom: 35px !important; }
-
-    .search-box { flex-direction: column; width: 95%; border-radius: 15px; }
-    .search-box button { border-radius: 0 0 15px 15px; }
+    .search-box { flex-direction: column; }
 
     .wayfinder-wrapper { 
         display: block; 
         padding: 10px; 
-        padding-bottom: 160px; 
     }
 
-    .f-btn { flex: 1 1 40%; padding: 8px; font-size: 0.8rem; }
-
     #streetview-floating {
-        width: 200px !important; /* Slightly smaller for mobile */
+        width: 200px !important; 
         height: 120px !important;
-        bottom: 15px !important;
-        right: 15px !important;
+    }
+
+    .site-footer {
+        font-size: 0.8rem;
+        padding-bottom: 100px; /* Space for Panoee */
     }
 }
