@@ -2,11 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SJCNI | Campus Wayfinder</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<div id="intro-overlay">
+    <div class="intro-box">
+        <img src="logo-clear.png" alt="SJCNI" class="intro-logo">
+        <h2>Welcome to SJCNI</h2>
+        <p>Your Campus Wayfinder is ready...</p>
+        <div class="loader"></div>
+    </div>
+</div>
 <!-- NAVBAR -->
 <header class="top-nav">
     <div class="logo-area">
@@ -45,9 +53,15 @@
             <button class="f-btn" onclick="setFloor('floor3.jpg', this)">LEVEL 3</button>
         </div>
         <div class="map-container">
-            <img src="floor1.jpg" id="activeMap">
-            <div id="pin" class="map-marker"></div>
-        </div>
+    <img src="floor1.jpg" id="activeMap">
+
+    <!-- PATH LINE -->
+    <img id="pathLine" class="path-line" src="" alt="path">
+
+    <!-- RED PIN -->
+    <div id="pin" class="map-marker"></div>
+</div>
+
     </div>
 
     <!-- STREETVIEW FLOATING -->
