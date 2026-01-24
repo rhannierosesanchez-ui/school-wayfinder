@@ -127,4 +127,19 @@ if (panoBox) {
             panoBox.style.height = "140px";
         }
     });
-}
+}// FULLSCREEN TOGGLE FIX
+const panoContainer = document.getElementById('streetview-floating');
+
+// If Panoee triggers a fullscreen event, tell the container to expand
+document.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement) {
+        panoContainer.style.width = "100vw";
+        panoContainer.style.height = "100vh";
+    } else {
+        // Reset to laptop size when exiting
+        if (window.innerWidth > 480) {
+            panoContainer.style.width = "400px";
+            panoContainer.style.height = "250px";
+        }
+    }
+});
