@@ -91,16 +91,13 @@ function handleSearch() {
 
     for (let key in rooms) {
         if (normalize(key).includes(input)) {
-            // Switch to correct floor image
             activeMap.src = rooms[key].floor;
 
-            // Auto-highlight the correct floor button
             const floorNum = rooms[key].floor.match(/\d/)[0]; 
             document.querySelectorAll(".f-btn").forEach(btn => {
                 btn.classList.toggle("active", btn.innerText.includes(floorNum));
             });
 
-            // Show Pin & Path
             showPin(rooms[key].x, rooms[key].y);
             pathLine.src = rooms[key].line;
             pathLine.style.display = "block";
@@ -110,36 +107,77 @@ function handleSearch() {
     alert("Room not found. Try typing the section name.");
 }
 
-// 6. INTERACTIVE STREETVIEW (Mobile Only)
-const panoBox = document.getElementById('streetview-floating');
-if (panoBox) {
-    panoBox.addEventListener('click', function() {
+// 6. INTERACTIVE & DRAGGABLE STREETVIEW
+const panoContainer = document.getElementById('streetview-floating');
+
+if (panoContainer) {
+    // Mobile Resize Logic
+    panoContainer.addEventListener('click', function() {
         if (window.innerWidth <= 480) {
             this.style.width = "280px";
             this.style.height = "180px";
         }
     });
 
-    // Shrink back when tapping the map
     document.getElementById('activeMap').addEventListener('click', () => {
         if (window.innerWidth <= 480) {
-            panoBox.style.width = "220px";
-            panoBox.style.height = "140px";
+            panoContainer.style.width = "220px";
+            panoContainer.style.height = "140px";
         }
     });
-}// FULLSCREEN TOGGLE FIX
-const panoContainer = document.getElementById('streetview-floating');
 
-// If Panoee triggers a fullscreen event, tell the container to expand
+    // Laptop Draggable Logic
+    if (window.innerWidth > 480) {
+        dragElement(panoContainer);
+    }
+}
+
+function dragElement(elmnt) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    elmnt.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+        // Don't drag if clicking inside the iframe (tour controls)
+        if (e.target.tagName === "IFRAME") return;
+        
+        e = e || window.event;
+        e.preventDefault();
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        
+        // Update position and clear bottom/right constraints
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        elmnt.style.bottom = "auto";
+        elmnt.style.right = "auto";
+    }
+
+    function closeDragElement() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}
+
+// 7. FULLSCREEN TOGGLE FIX
 document.addEventListener('fullscreenchange', () => {
     if (document.fullscreenElement) {
         panoContainer.style.width = "100vw";
         panoContainer.style.height = "100vh";
     } else {
-        // Reset to laptop size when exiting
         if (window.innerWidth > 480) {
-            panoContainer.style.width = "400px";
-            panoContainer.style.height = "250px";
+            panoContainer.style.width = "350px"; // Back to your new laptop size
+            panoContainer.style.height = "220px";
         }
     }
 });
