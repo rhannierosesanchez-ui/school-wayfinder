@@ -31,8 +31,8 @@ const rooms = {
   "perseverance": { floor:"floor1.jpg", x:27, y:48, line:"line-perseverance.png" },
   "integrity": { floor:"floor1.jpg", x:31, y:33, line:"line-integrity.png" },
   "certitude": { floor:"floor1.jpg", x:35, y:23, line:"line-certitude.png" },
-  "taekwando": { floor:"floor1.jpg", x:68, y:7, line:"line-taekwondo.png" },
-  "peace": { floor:"floor1.jpg", x:67, y:63, line:"line-peace.png" },
+  "taekwondo": { floor:"floor1.jpg", x:68, y:7, line:"line-taekwondo.png" },
+  "peace": { floor:"floor1.jpg", x:66, y:17, line:"line-peace.png" },
   "dignity": { floor:"floor1.jpg", x:58, y:69, line:"line-dignity.png" },
   "loyalty": { floor:"floor1.jpg", x:49, y:74, line:"line-loyalty.png" },
   "obedience": { floor:"floor1.jpg", x:78, y:65, line:"line-obedience.png" },
@@ -48,8 +48,8 @@ const rooms = {
   "courage": { floor:"floor2.jpg", x:58, y:69, line:"line-courage.png" },
   "wisdom": { floor:"floor2.jpg", x:49, y:74, line:"line-wisdom.png" },
   "faculty": { floor:"floor2.jpg", x:78, y:65, line:"line-faculty.png" },
-  "guidance": { floor:"floor2.jpg", x:38, y:13, line:"line-guidance.png" },
-  "clinic": { floor:"floor2.jpg", x:38, y:13, line:"line-clinic.png" },
+  "guidance": { floor:"floor2.jpg", x:70, y:7, line:"line-guidance.png" },
+  "clinic": { floor:"floor2.jpg", x:63, y:6, line:"line-clinic.png" },
   "restroom 2": { floor:"floor2.jpg", x:38, y:15, line:"line-restroom2.png" },
 
   // FLOOR 3
@@ -180,4 +180,76 @@ document.addEventListener('fullscreenchange', () => {
             panoContainer.style.height = "220px";
         }
     }
-});
+});// 1. THE DATABASE (Ensure this is at the TOP or directly above the function)
+const roomDatabase = {
+  "registrar": { floor:"floor1.jpg", x:21, y:65, line:"line-registrar.png" },
+  "cashier": { floor:"floor1.jpg", x:21, y:65, line:"line-registrar.png" },
+  "perseverance": { floor:"floor1.jpg", x:27, y:48, line:"line-perseverance.png" },
+  "integrity": { floor:"floor1.jpg", x:31, y:33, line:"line-integrity.png" },
+  "certitude": { floor:"floor1.jpg", x:35, y:23, line:"line-certitude.png" },
+  "taekwondo": { floor:"floor1.jpg", x:68, y:7, line:"line-taekwondo.png" },
+  "peace": { floor:"floor1.jpg", x:69, y:19, line:"line-peace.png" },
+  "dignity": { floor:"floor1.jpg", x:72, y:29, line:"line-dignity.png" },
+  "loyalty": { floor:"floor1.jpg", x:75, y:46, line:"line-loyalty.png" },
+  "obedience": { floor:"floor1.jpg", x:78, y:65, line:"line-obedience.png" },
+  "restroom 1": { floor:"floor1.jpg", x:38, y:15, line:"line-restroom1.png" },
+  "humility": { floor:"floor2.jpg", x:21, y:65, line:"line-humility.png" },
+  "honesty": { floor:"floor2.jpg", x:27, y:48, line:"line-honesty.png" },
+  "prudence": { floor:"floor2.jpg", x:31, y:33, line:"line-prudence.png" },
+  "competence": { floor:"floor2.jpg", x:35, y:23, line:"line-competence.png" },
+  "patience": { floor:"floor2.jpg", x:78, y:65, line:"line-patience.png" },
+  "discernment": { floor:"floor2.jpg", x:75, y:46, line:"line-discernment.png" },
+  "courage": { floor:"floor2.jpg", x:72, y:29, line:"line-courage.png" },
+  "wisdom": { floor:"floor2.jpg", x:49, y:74, line:"line-wisdom.png" },
+  "faculty": { floor:"floor2.jpg", x:69, y:19, line:"line-faculty.png" },
+  "guidance": { floor:"floor2.jpg", x:70, y:7, line:"line-guidance.png" },
+  "clinic": { floor:"floor2.jpg", x:63, y:6, line:"line-clinic.png" },
+  "restroom 2": { floor:"floor2.jpg", x:38, y:15, line:"line-restroom2.png" },
+  "sound": { floor:"floor3.jpg", x:21, y:65, line:"line-sound-eng.png" },
+  "robotics": { floor:"floor3.jpg", x:31, y:33, line:"line-robotics.png" },
+  "gratitude": { floor:"floor3.jpg", x:27, y:50, line:"line-gratitude-unity.png" },
+  "unity": { floor:"floor3.jpg", x:27, y:50, line:"line-gratitude-unity.png" },
+  "grace": { floor:"floor3.jpg", x:35, y:25, line:"line-grace.png" },
+  "tranquility": { floor:"floor3.jpg", x:78, y:67, line:"line-tranquility.png" },
+  "righteousness": { floor:"floor3.jpg", x:75, y:48, line:"line-righteousness.png" },
+  "fortitude": { floor:"floor3.jpg", x:72, y:33, line:"line-fortitude-excellence.png" },
+  "excellence": { floor:"floor3.jpg", x:72, y:33, line:"line-fortitude-excellence.png" },
+  "justice": { floor:"floor3.jpg", x:69, y:21, line:"line-justice-frugality.png" },
+  "frugality": { floor:"floor3.jpg", x:69, y:21, line:"line-justice-frugality.png" },
+  "industry": { floor:"floor3.jpg", x:68, y:10, line:"line-industry.png" },
+  "restroom 3": { floor:"floor3.jpg", x:38, y:15, line:"line-restroom3.png" }
+};
+
+// 2. THE SEARCH FUNCTION
+function handleSearch() {
+    // Get search value and make it lowercase to match the database keys
+    const inputField = document.getElementById('searchInput');
+    const query = inputField.value.toLowerCase().trim();
+
+    console.log("Searching for:", query); // Debugging line
+
+    if (roomDatabase[query]) {
+        const roomData = roomDatabase[query];
+
+        // Update Map Image
+        const mapImg = document.querySelector('.map-container img');
+        if (mapImg) mapImg.src = roomData.floor;
+
+        // Update Red Marker
+        const marker = document.querySelector('.map-marker');
+        if (marker) {
+            marker.style.display = "block";
+            marker.style.left = roomData.x + "%";
+            marker.style.top = roomData.y + "%";
+        }
+
+        // Update Path Line
+        const pathLine = document.querySelector('.path-line');
+        if (pathLine) {
+            pathLine.src = roomData.line;
+            pathLine.style.display = "block";
+        }
+    } else {
+        alert("Room not found! Make sure to pick from the list.");
+    }
+}
