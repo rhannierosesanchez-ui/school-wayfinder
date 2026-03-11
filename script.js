@@ -49,7 +49,7 @@ const roomDatabase = {
   "clinic": { floor:"floor2.jpg", x:63, y:6, line:"line-clinic.png" },
   "restroom 2": { floor:"floor2.jpg", x:38, y:15, line:"line-restroom2.png" },
   "sound": { floor:"floor3.jpg", x:21, y:65, line:"line-sound-eng.png" },
-  "robotics": { floor:"floor3.jpg", x:31, y:33, line:"line-robotics.png" },
+  "tle": { floor:"floor3.jpg", x:31, y:33, line:"line-tle.png" },
   "gratitude": { floor:"floor3.jpg", x:27, y:50, line:"line-gratitude-unity.png" },
   "unity": { floor:"floor3.jpg", x:27, y:50, line:"line-gratitude-unity.png" },
   "grace": { floor:"floor3.jpg", x:35, y:25, line:"line-grace.png" },
